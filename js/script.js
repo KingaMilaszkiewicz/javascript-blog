@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function titleClickHandler(event){
   event.preventDefault();
@@ -14,8 +14,8 @@ function titleClickHandler(event){
   }
 
   /* [DONE] add class 'active' to the clicked link */
-  console.log("clickedElement:", clickedElement);
-  clickedElement.classList.add("active");
+  console.log('clickedElement:', clickedElement);
+  clickedElement.classList.add('active');
 
   /* [DONE] remove class 'active' from all articles */
   const activeArticles = document.querySelectorAll('.posts article.active');
@@ -25,7 +25,7 @@ function titleClickHandler(event){
   }
 
   /* [DONE] get 'href' attribute from the clicked link */
-  const articleSelector = clickedElement.getAttribute("href");
+  const articleSelector = clickedElement.getAttribute('href');
   console.log(articleSelector);
 
   /* [DONE] find the correct article using the selector (value of 'href' attribute) */
@@ -33,20 +33,20 @@ function titleClickHandler(event){
   console.log(targetArticle);
 
   /* [DONE] add class 'active' to the correct article */
-  targetArticle.classList.add("active");
+  targetArticle.classList.add('active');
 }
 
 ////////////////////////////////////////////////////////////
 
-const optArticleSelector = ".post",
-      optTitleSelector = ".post-title",
-      optTitleListSelector = ".titles";
+const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles';
 
 function generateTitleLinks(){
 
   /* [DONE] remove contents of titleList */
   const titleList = document.querySelector(optTitleListSelector);
-  titleList.innerHTML = "";
+  titleList.innerHTML = '';
 
   /* [DONE] for each article */
   const articles = document.querySelectorAll(optArticleSelector);
@@ -54,7 +54,7 @@ function generateTitleLinks(){
   for(let article of articles){
 
     /* [DONE] get the article id */
-    const articleId = article.getAttribute("id");
+    const articleId = article.getAttribute('id');
     console.log(articleId);
 
     /* [DONE] find the title element & get the title from the title element*/
