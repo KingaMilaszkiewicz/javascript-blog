@@ -7,6 +7,8 @@ const optArticleSelector = '.post',
 
 ////////////////////////////////////////////////////////////
 
+// REEEE
+
 function titleClickHandler(event){
   event.preventDefault();
   const clickedElement = this;
