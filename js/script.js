@@ -1,5 +1,13 @@
 'use strict';
 
+const templates = {
+  articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
+  tagLink: Handlebars.compile(document.querySelector('#template-tag-link').innerHTML),
+  authorLink: Handlebars.compile(document.querySelector('#template-author-link').innerHTML),
+  tagCloudLink: Handlebars.compile(document.querySelector('#template-tag-cloud-link').innerHTML),
+  authorCloudLink: Handlebars.compile(document.querySelector('#template-author-cloud-link').innerHTML),
+}
+
 const opts = {
   tagSizes: {
     count: 5,
@@ -82,7 +90,8 @@ function generateTitleLinks(customSelector = ''){
     const articleTitle = article.querySelector(select.article.posts).innerHTML;
 
     /* [DONE] create HTML of the link */
-    const linkHTML = '<li><a href="#' + articleId + '"><span>' + articleTitle + '</span></a></li>';
+    const linkHTMLData = {id: articleId, title: articleTitle};
+    const linkHTML = templates.articleLink(linkHTMLData);
 
     /* [DONE] insert link into titleList */
     html = html + linkHTML;
@@ -147,7 +156,9 @@ function generateTags(){
     /* [DONE] START LOOP: for each tag */
     for(let tag of articleTagsArray){
       /* [DONE] generate HTML of the link */
-      const tagHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
+      const tagHTMLData = {id: tag, tag: tag};
+      const tagHTML = templates.tagLink(tagHTMLData);
+      //const tagHTML = '<li><a href="#tag-' + tag + '">' + tag + '</a></li>';
       /* [DONE] add generated code to html variable */
       html = html + tagHTML;
       /* [NEW] check if this link is NOT already in allTags */
@@ -173,16 +184,21 @@ function generateTags(){
   /* [NEW] create variable for all links HTML code */
   const tagsParams = calculateParams(allTags);
   //console.log('tagsParams:', tagsParams);
-  let allTagsHTML = '';
+  const allTagsData = {tags: []};
 
   /* [NEW] START LOOP: for each tag in allTags: */
   for(let tag in allTags){
     /* [NEW] generate code of a link and add it to allTagsHTML */
-    allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
+    allTagsData.tags.push({
+      tag: tag,
+      count: allTags[tag],
+      className: calculateTagClass(allTags[tag], tagsParams)
+    });
+    //allTagsHTML += '<li><a href="#tag-' + tag + '" class="' + calculateTagClass(allTags[tag], tagsParams) + '">' + tag + '</a></li>';
   /* [NEW] END LOOP: for each tag in allTags: */
   }
   /* [NEW] add html from allTagsHtml to tagList */
-  tagList.innerHTML = allTagsHTML;
+  tagList.innerHTML = templates.tagCloudLink(allTagsData);
 
   const tags = document.querySelectorAll('.tags li a');
   for(let tag of tags){
@@ -251,7 +267,9 @@ function generateAuthors() {
     /* get author from data-author attribute */
     const author = article.getAttribute('data-author');
     /* generate HTML of the link */
-    const authorHTML = 'by <a href="#author-' + author + '">' + author + '</a>'
+    const authorHTMLData = {id: author, author: author};
+    const authorHTML = templates.authorLink(authorHTMLData);
+    //const authorHTML = 'by <a href="#author-' + author + '">' + author + '</a>';
     /* add generated code to html variable */
     html = html + authorHTML;
     /* [NEW] check if this link is NOT already in allAuthors */
@@ -269,16 +287,21 @@ function generateAuthors() {
   const authorList = document.querySelector('.authors');
   /* [NEW] create variable for all links HTML code */
   const authorParams = calculateParams(allAuthors);
-  let allAuthorsHTML = '';
+  const allAuthorsData = {authors: []};
   /* [NEW] START LOOP: for each author in allAuthors: */
   console.log(allAuthors);
   for(let author in allAuthors){
     /* [NEW] generate code of a link and add it to allAuthorsHTML */
-    allAuthorsHTML += '<li><a href="#author-' + author + '" class="' + calculateAuthorClass(allAuthors[author], authorParams) + '">' + author + '</a></li>';
+    allAuthorsData.authors.push({
+      author: author,
+      count: allAuthors[author],
+      className: calculateAuthorClass(allAuthors[author], authorParams)
+    });
+    //allAuthorsHTML += '<li><a href="#author-' + author + '" class="' + calculateAuthorClass(allAuthors[author], authorParams) + '">' + author + '</a></li>';
   /* [NEW] END LOOP: for each author in allAuthors: */
   }
   /* [NEW] add html from allAuthorsHtml to authorList */
-  authorList.innerHTML = allAuthorsHTML;
+  authorList.innerHTML = templates.authorCloudLink(allAuthorsData);
 
   const authors = document.querySelectorAll('.authors li a, .post-author a');
   for(let author of authors){
