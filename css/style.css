@@ -87,6 +87,27 @@ body {
 /* Authors */
 .authors li {
   margin-bottom: 12px;
+  display: inline-block;
+}
+
+.author-size-1 {
+  font-size: 15px;
+}
+
+.author-size-2 {
+  font-size: 20px;
+}
+
+.author-size-3 {
+  font-size: 25px;
+}
+
+.author-size-4 {
+  font-size: 30px;
+}
+
+.author-size-5 {
+  font-size: 35px;
 }
 
 /* Post */
@@ -109,5 +130,30 @@ body {
 
 .post-tags p {
   margin: 0 10px 0 0;
+}
+
+/* Tag Cloud */
+.tags li {
+  display: inline-block;
+}
+
+.tag-size-1 {
+  font-size: 15px;
+}
+
+.tag-size-2 {
+  font-size: 20px;
+}
+
+.tag-size-3 {
+  font-size: 25px;
+}
+
+.tag-size-4 {
+  font-size: 30px;
+}
+
+.tag-size-5 {
+  font-size: 35px;
 }
 /*# sourceMappingURL=style.css.map */
